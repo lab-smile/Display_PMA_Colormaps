@@ -1,14 +1,16 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%function CLT = select_colormap(clt_select)
+%function CLT = select_colormap(clt_pma, clt_select)
 % obtain CLT (PMA colormap) from the enntire color lookup table
 %
 % OUTPUTS:
 %   CLT     - Color Lookup Table
 %
 % INPUTS:
+%   clt_pma     - Colormap Look Up Table (LUT)
 %   clt_select  - Colormap Name in PMA
 %
 % 2/17/2019 - Yao Xiao @ SMILE | UF
+% 9/22/2020 - Ruogu Fang @ SMILE | UF edited
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function CLT = select_colormap(clt_pma,clt_select)
@@ -102,7 +104,7 @@ CLT = zeros(256,3);
 CLT(:,1) = clt_col(1:256);
 CLT(:,2) = clt_col(259:514);
 CLT(:,3) = clt_col(517:772);
-CLT = CLT./256;
+CLT = CLT./255;
 
 end
 
