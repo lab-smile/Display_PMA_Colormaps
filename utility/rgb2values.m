@@ -1,5 +1,5 @@
 function image_values = rgb2values(image, colormap, modality)
-% Function Header
+%% Function Header
 % Description:
 %   Converts an RGB-image to the values which correspond to the colors
 %       based on a colormap that is passed in.
