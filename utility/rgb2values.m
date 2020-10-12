@@ -1,5 +1,31 @@
 function image_values = rgb2values(image, colormap, modality)
+%% Function Header
+% Description:
+%   Converts an RGB-image to the values which correspond to the colors
+%       based on a colormap that is passed in.
+%
+% Inputs:
+%   Image : An RGB image of any row and col size, the color pixel must be 
+%       RGB. That is, [x][y][1] must corresond to red component of the pixel, [x][y][2] must
+%       correspond to green component of the pixel and [x][y][3] must correspond to the blue
+%       component of the pixel
+%
+%   Colormap : Must be a color look up table, any colormap in
+%       select_colormap() will work, as well as the colormaps from running
+%       load('Rainbow_CBP')
+%
+%   Modality : Modality of the image which is being passed in. Values can
+%       be editted in the switch - case area. Can also be used to generate
+%       indexed image.
+%
+% Output:
+%   image_values : returns a 2-D image of the same size of the original
+%       image columns and rows.
+%
+% Written by : Simon Kato
+%              Smile-LAB @UF
 
+%% Function
 switch modality
     case 'CBF'
         maxV = 60;
@@ -56,12 +82,12 @@ for i = 1:y
         if Red(j,i) == 0 && Green(j,i) == 0 && Blue(j,i) == 0 %Meant to increase performance
             image_values(j,i) = 0;
         else
-            try
-                image_values(j,i) = ((find(colormap_Red == Red(j,i) & colormap_Green == Green(j,i) & colormap_Blue == Blue(j,i)) - 1)/scaler)*(maxV-minV) + minV;
-            catch
+            if isempty(find(colormap_Red == Red(j,i) & colormap_Green == Green(j,i) & colormap_Blue == Blue(j,i))) %#ok<EFIND>
                 values = [colormap_Red - double(Red(j,i))*ones(scaler + 1,1), colormap_Green - double(Green(j,i))*ones(scaler + 1,1), colormap_Blue - double(Blue(j,i))*ones(scaler + 1,1)]';
                 [~, closestValue] = min(vecnorm(values));
                 image_values(j,i) = (closestValue-1)/scaler*(maxV-minV) + minV;
+            else
+                image_values(j,i) = ((find(colormap_Red == Red(j,i) & colormap_Green == Green(j,i) & colormap_Blue == Blue(j,i)) - 1)/scaler)*(maxV-minV) + minV;
             end
         end
     end
