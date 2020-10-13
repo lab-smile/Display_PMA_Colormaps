@@ -1,5 +1,5 @@
 function image_values = rgb2values(image, colormap, modality)
-%% Function Header
+% Function Header
 % Description:
 %   Converts an RGB-image to the values which correspond to the colors
 %       based on a colormap that is passed in.
@@ -25,7 +25,7 @@ function image_values = rgb2values(image, colormap, modality)
 % Written by : Simon Kato
 %              Smile-LAB @UF
 
-%% Function
+% Function
 switch modality
     case 'CBF'
         maxV = 60;
